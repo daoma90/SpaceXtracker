@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:spacextracker/constants.dart';
 import 'package:spacextracker/models/launch_models.dart';
-import 'package:spacextracker/providers/launch_provider.dart';
 import 'package:spacextracker/widgets/custom_divider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -11,13 +9,8 @@ class ListCard extends StatelessWidget {
 
   ListCard(this.launch);
 
-  // const ListCard({
-  //   Key key,
-  // }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final getRocket = Provider.of<LaunchProvider>(context);
     return Container(
       padding: EdgeInsets.only(
         top: 6,
@@ -62,7 +55,7 @@ class ListCard extends StatelessWidget {
                             ),
                             CustomDivider(),
                             Text(
-                              getRocket.getRocket(launch.rocket),
+                              launch.rocket,
                               style: TextStyle(color: colorGrey, fontSize: 15),
                             ),
                           ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import '../constants.dart';
 import '../screens/past_screen.dart';
@@ -28,21 +27,28 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
+      extendBodyBehindAppBar: isPortrait ? false : true,
       appBar: AppBar(
-        title: Text(_tabScreens[_selectedScreenIndex]['title']),
-        centerTitle: true,
+        title: isPortrait ? Text(_tabScreens[_selectedScreenIndex]['title']) : null,
+        elevation: isPortrait ? 5 : 0,
+        centerTitle: isPortrait ? true : false,
+        backgroundColor: isPortrait ? null : Colors.transparent,
         actions: <Widget>[
-          InkWell(
-            borderRadius: BorderRadius.circular(30),
-            onTap: () {
-              Navigator.of(context).pushNamed('/search');
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Icon(
-                Icons.search_rounded,
-                size: 30,
+          Container(
+            margin: const EdgeInsets.only(right: 15.0),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(30),
+              onTap: () {
+                Navigator.of(context).pushNamed('/search');
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                child: Icon(
+                  Icons.search_rounded,
+                  size: 30,
+                ),
               ),
             ),
           )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:spacextracker/screens/search_screen.dart';
 import './constants.dart';
@@ -8,6 +9,9 @@ import './screens/tab_screen.dart';
 import './providers/launch_provider.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  );
   runApp(MyApp());
 }
 

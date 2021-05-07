@@ -58,12 +58,36 @@ class LaunchProvider with ChangeNotifier {
     return formattedTime;
   }
 
+  // Future<void> getUpcomingLaunchCountdown() async {
+  //   final url = 'https://api.spacexdata.com/v4/launches/next';
+
+  //   try {
+  //     final response = await http.get(Uri.parse(url));
+  //     print(response.statusCode);
+  //     final fetchData = json.decode(response.body) as Map;
+  //     print('Fetch data date unix ${fetchData['date_unix']}');
+  //     _upcomingLaunches[0].dateUnix = fetchData['date_unix'].round().toInt();
+  //     print('Upcoming launch dateunix ${_upcomingLaunches[0].dateUnix}');
+  //   } catch (error) {
+  //     print(error);
+  //   }
+  // }
+
+// {
+//         "query": {"upcoming": true},
+//         "options": {
+//           "limit": 1,
+//           "select": {"date_unix": 1}
+//         }
+//       }
+
   Future<void> fetchAndSetUpcomingLaunches() async {
     final url = 'https://api.spacexdata.com/v4/launches/upcoming';
 
     try {
       final response = await http.get(Uri.parse(url));
       final fetchData = json.decode(response.body) as List<dynamic>;
+
       final List<Launch> upcomingLaunches = [];
       if (fetchData == null) {
         return;
@@ -73,11 +97,11 @@ class LaunchProvider with ChangeNotifier {
         upcomingLaunches.add(Launch(
           id: launch['id'],
           name: launch['name'],
-          rocket: launch['rocket'],
+          rocket: getRocket(launch['rocket']),
           details: launch['details'] != null ? launch['details'] : 'N/A',
-          launchpad: launch['launchpad'],
+          launchpad: getLaunchpad(launch['launchpad']),
           patch: launch['links']['patch']['small'],
-          payload: launch['payloads'],
+          payload: getPayload(launch['payloads']),
           launchNumber: launch['flight_number'],
           datePrecision: launch['date_precision'],
           dateUnix: launch['date_unix'],
@@ -87,6 +111,7 @@ class LaunchProvider with ChangeNotifier {
       });
 
       _upcomingLaunches = upcomingLaunches;
+
       notifyListeners();
     } catch (error) {
       throw (error);
@@ -108,11 +133,11 @@ class LaunchProvider with ChangeNotifier {
         pastLaunches.add(Launch(
           id: launch['id'],
           name: launch['name'],
-          rocket: launch['rocket'],
+          rocket: getRocket(launch['rocket']),
           details: launch['details'],
-          launchpad: launch['launchpad'],
+          launchpad: getLaunchpad(launch['launchpad']),
           patch: launch['links']['patch']['small'],
-          payload: launch['payloads'],
+          payload: getPayload(launch['payloads']),
           launchNumber: launch['flight_number'],
           datePrecision: launch['date_precision'],
           dateUnix: launch['date_unix'],
@@ -226,18 +251,20 @@ class LaunchProvider with ChangeNotifier {
     return rocketName;
   }
 
-  Map<String, String> getPayload(String launchPayloadId) {
+  Map<String, String> getPayload(List launchPayloadId) {
     Map<String, String> payloadList;
 
     _payloads.forEach((payload) {
-      if (payload.payloadId == launchPayloadId) {
-        payloadList = {
-          'payloadName': payload.payloadName,
-          'payloadType': payload.payloadType,
-          'payloadOrbit': payload.payloadOrbit,
-          'payloadRegime': payload.payloadRegime,
-        };
-      }
+      launchPayloadId.forEach((payloadId) {
+        if (payload.payloadId == payloadId) {
+          payloadList = {
+            'payloadName': payload.payloadName,
+            'payloadType': payload.payloadType,
+            'payloadOrbit': payload.payloadOrbit,
+            'payloadRegime': payload.payloadRegime,
+          };
+        }
+      });
     });
 
     return payloadList;
@@ -259,4 +286,24 @@ class LaunchProvider with ChangeNotifier {
 
     return launchpadList;
   }
+
+  List<Launch> filterLaunches(String searchInput) {
+    List<Launch> allLaunches = [..._upcomingLaunches, ..._pastLaunches];
+    List<Launch> filteredLaunches = [];
+
+    if (searchInput.length > 0) {
+      allLaunches.forEach((launch) => {
+            if (launch.details != null && launch.details.toLowerCase().contains(searchInput) ||
+                launch.dateReadable != null && launch.dateReadable.toLowerCase().contains(searchInput) ||
+                launch.name != null && launch.name.toLowerCase().contains(searchInput) ||
+                launch.rocket != null && launch.rocket.toLowerCase().contains(searchInput))
+              {filteredLaunches.add(launch)}
+          });
+    }
+
+    return filteredLaunches;
+  }
 }
+
+// (launch.success != null  && searchInput == 'success') ||
+//                 (launch.success != null && searchInput == 'failed') ||

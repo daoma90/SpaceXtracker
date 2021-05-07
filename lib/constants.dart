@@ -10,3 +10,10 @@ const colorRed = Colors.red;
 
 const cardBackground = Color(0xFF424567);
 const tabActive = Colors.blue;
+
+const cardShadow = BoxShadow(
+  color: Colors.black26,
+  spreadRadius: 3,
+  blurRadius: 5,
+  offset: Offset(0, 3),
+);

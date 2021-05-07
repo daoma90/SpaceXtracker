@@ -10,46 +10,74 @@ class DetailsTextSection extends StatelessWidget {
 
   DetailsTextSection({@required this.title, this.text, this.list});
 
+  Widget renderDetails() {
+    return text != null
+        ? Text(
+            text,
+            style: TextStyle(
+              color: colorWhite.withOpacity(0.6),
+            ),
+          )
+        : Text(
+            'N/A',
+            style: TextStyle(
+              color: colorWhite.withOpacity(0.6),
+            ),
+          );
+  }
+
   Widget renderPayload() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          list['payloadName'],
-          style: TextStyle(
-            color: colorWhite.withOpacity(0.6),
-          ),
-        ),
-        Text(
-          list['payloadType'],
-          style: TextStyle(
-            color: colorWhite.withOpacity(0.6),
-          ),
-        ),
-      ],
-    );
+    return list != null && list['payloadName'] != null
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                list['payloadName'],
+                style: TextStyle(
+                  color: colorWhite.withOpacity(0.6),
+                ),
+              ),
+              Text(
+                list['payloadType'],
+                style: TextStyle(
+                  color: colorWhite.withOpacity(0.6),
+                ),
+              ),
+            ],
+          )
+        : Text(
+            'N/A',
+            style: TextStyle(
+              color: colorWhite.withOpacity(0.6),
+            ),
+          );
   }
 
   Widget renderTarget() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        list['payloadOrbit'] != null
-            ? Text(
+    return list != null && list['payloadOrbit'] != null
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
                 list['payloadOrbit'],
                 style: TextStyle(
                   color: colorWhite.withOpacity(0.6),
                 ),
-              )
-            : SizedBox(),
-        Text(
-          list['payloadRegime'],
-          style: TextStyle(
-            color: colorWhite.withOpacity(0.6),
-          ),
-        ),
-      ],
-    );
+              ),
+              Text(
+                list['payloadRegime'],
+                style: TextStyle(
+                  color: colorWhite.withOpacity(0.6),
+                ),
+              ),
+            ],
+          )
+        : Text(
+            'N/A',
+            style: TextStyle(
+              color: colorWhite.withOpacity(0.6),
+            ),
+          );
   }
 
   Widget renderLaunchpad() {
@@ -81,6 +109,7 @@ class DetailsTextSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(maxWidth: 500),
       margin: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,12 +125,7 @@ class DetailsTextSection extends StatelessWidget {
                   ? renderTarget()
                   : title == 'Launchpad'
                       ? renderLaunchpad()
-                      : Text(
-                          text,
-                          style: TextStyle(
-                            color: colorWhite.withOpacity(0.6),
-                          ),
-                        ),
+                      : renderDetails()
         ],
       ),
     );

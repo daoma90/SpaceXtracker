@@ -5,14 +5,14 @@ class Launch {
   final String name;
   final String rocket;
   final String details;
-  final String launchpad;
+  final Map launchpad;
   final String stream;
   final String patch;
-  final List payload;
+  final Map payload;
   final int launchNumber;
   final bool upcoming;
   final String datePrecision;
-  final int dateUnix;
+  int dateUnix;
   final String dateReadable;
   final String timeReadable;
   final dynamic success;

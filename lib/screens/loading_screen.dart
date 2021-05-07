@@ -23,9 +23,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void getLaunchData() async {
     // await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetNextLaunch();
-    Provider.of<LaunchProvider>(context, listen: false).fetchAndSetRockets();
-    Provider.of<LaunchProvider>(context, listen: false).fetchAndSetPayloads();
-    Provider.of<LaunchProvider>(context, listen: false).fetchAndSetLaunchpads();
+    await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetRockets();
+    await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetPayloads();
+    await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetLaunchpads();
     await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetUpcomingLaunches();
     await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetPastLaunches();
 
