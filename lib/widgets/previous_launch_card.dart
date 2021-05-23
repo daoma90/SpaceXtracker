@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:spacextracker/constants.dart';
 import 'package:spacextracker/providers/launch_provider.dart';
@@ -9,7 +10,6 @@ class PreviousLaunchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pastLaunch = Provider.of<LaunchProvider>(context).pastLaunches[0];
-    print(pastLaunch.success);
     return Container(
       padding: EdgeInsets.only(
         top: 10,
@@ -24,24 +24,25 @@ class PreviousLaunchCard extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
             Container(
-              constraints: BoxConstraints(maxWidth: 500),
+              constraints: BoxConstraints(maxWidth: 50.h),
               margin: EdgeInsets.only(top: 50, right: 10, bottom: 10, left: 10),
               decoration: BoxDecoration(
                 color: cardBackground,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [cardShadow],
               ),
-              child: Card(
-                color: cardBackground,
-                elevation: 0,
+              child: Material(
+                color: Colors.transparent,
                 child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     Navigator.of(context).pushNamed('/details', arguments: pastLaunch);
                   },
                   child: Container(
-                    width: double.infinity,
+                    // width: double.infinity,
                     padding: EdgeInsets.all(20),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,6 +68,7 @@ class PreviousLaunchCard extends StatelessWidget {
                         Text(
                           pastLaunch.name,
                           style: TextStyle(color: colorWhite, fontSize: 25),
+                          textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 5),
                         Text(

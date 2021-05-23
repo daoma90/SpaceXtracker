@@ -58,29 +58,6 @@ class LaunchProvider with ChangeNotifier {
     return formattedTime;
   }
 
-  // Future<void> getUpcomingLaunchCountdown() async {
-  //   final url = 'https://api.spacexdata.com/v4/launches/next';
-
-  //   try {
-  //     final response = await http.get(Uri.parse(url));
-  //     print(response.statusCode);
-  //     final fetchData = json.decode(response.body) as Map;
-  //     print('Fetch data date unix ${fetchData['date_unix']}');
-  //     _upcomingLaunches[0].dateUnix = fetchData['date_unix'].round().toInt();
-  //     print('Upcoming launch dateunix ${_upcomingLaunches[0].dateUnix}');
-  //   } catch (error) {
-  //     print(error);
-  //   }
-  // }
-
-// {
-//         "query": {"upcoming": true},
-//         "options": {
-//           "limit": 1,
-//           "select": {"date_unix": 1}
-//         }
-//       }
-
   Future<void> fetchAndSetUpcomingLaunches() async {
     final url = 'https://api.spacexdata.com/v4/launches/upcoming';
 
@@ -97,7 +74,7 @@ class LaunchProvider with ChangeNotifier {
         upcomingLaunches.add(Launch(
           id: launch['id'],
           name: launch['name'],
-          rocket: getRocket(launch['rocket']),
+          rocket: getRocket(launch['rocket']).rocketName,
           details: launch['details'] != null ? launch['details'] : 'N/A',
           launchpad: getLaunchpad(launch['launchpad']),
           patch: launch['links']['patch']['small'],
@@ -133,7 +110,7 @@ class LaunchProvider with ChangeNotifier {
         pastLaunches.add(Launch(
           id: launch['id'],
           name: launch['name'],
-          rocket: getRocket(launch['rocket']),
+          rocket: getRocket(launch['rocket']).rocketName,
           details: launch['details'],
           launchpad: getLaunchpad(launch['launchpad']),
           patch: launch['links']['patch']['small'],
@@ -172,6 +149,15 @@ class LaunchProvider with ChangeNotifier {
         fetchedRockets.add(Rocket(
           rocketId: rocket['id'],
           rocketName: rocket['name'],
+          details: rocket['description'],
+          height: rocket['height']['meters'],
+          diameter: rocket['diameter']['meters'],
+          mass: rocket['mass']['kg'],
+          engine: rocket['engines']['type'],
+          payloadToLeo: rocket['payload_weights'][0]['kg'],
+          payloadToGto: rocket['payload_weights'].length > 1 ? rocket['payload_weights'][1]['kg'] : 0,
+          payloadToMars: rocket['payload_weights'].length > 2 ? rocket['payload_weights'][2]['kg'] : 0,
+          payloadWeights: rocket['payload_weights'],
         ));
       });
 
@@ -239,16 +225,16 @@ class LaunchProvider with ChangeNotifier {
     }
   }
 
-  String getRocket(String rocketId) {
-    String rocketName;
+  Rocket getRocket(String rocketId) {
+    Rocket rocketToReturn;
 
     _rockets.forEach((rocket) {
       if (rocket.rocketId == rocketId) {
-        rocketName = rocket.rocketName;
+        rocketToReturn = rocket;
       }
     });
 
-    return rocketName;
+    return rocketToReturn;
   }
 
   Map<String, String> getPayload(List launchPayloadId) {

@@ -1,5 +1,6 @@
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:provider/provider.dart';
 import 'package:spacextracker/providers/launch_provider.dart';
@@ -63,135 +64,82 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     controller = CountdownTimerController(endTime: _duration);
 
-    return Container(
-      padding: const EdgeInsets.only(top: 10),
-      child: Column(
-        children: [
-          Container(
-            width: 220,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('DD', style: TextStyle(color: colorGrey)),
-                Text('HH', style: TextStyle(color: colorGrey)),
-                Text('MM', style: TextStyle(color: colorGrey)),
-                Text('SS', style: TextStyle(color: colorGrey)),
-              ],
-            ),
-          ),
-          DelayedDisplay(
-            slidingBeginOffset: const Offset(0.0, 0.0),
-            delay: Duration(milliseconds: 300),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              child: _duration != null
-                  ? CountdownTimer(
-                      controller: controller,
-                      endTime: _duration,
-                      widgetBuilder: (_, CurrentRemainingTime time) {
-                        if (time == null) {
-                          return Text('Time for launch!', style: TextStyle(fontSize: 40, color: colorWhite));
-                        } else {
-                          return Text(
-                            '${refactorTime(time.days)}:${refactorTime(time.hours)}:${refactorTime(time.min)}:${refactorTime(time.sec)}',
-                            style: TextStyle(fontSize: 46, color: colorWhite, letterSpacing: 2),
-                          );
-                        }
-                      },
-                    )
-                  : null,
-              // : Text('', style: TextStyle(fontSize: 46, color: colorWhite, letterSpacing: 2)),
-            ),
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        DelayedDisplay(
+          slidingBeginOffset: const Offset(0.0, 0.0),
+          delay: Duration(milliseconds: 300),
+          child: _duration != null
+              ? CountdownTimer(
+                  controller: controller,
+                  endTime: _duration,
+                  widgetBuilder: (_, CurrentRemainingTime time) {
+                    if (time == null) {
+                      return Text('Time for launch!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 40,
+                            color: colorWhite,
+                          ));
+                    } else {
+                      return Container(
+                        width: 60.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.center,
+                              width: 10.w,
+                              child: Text(
+                                '${refactorTime(time.days)}',
+                                style: TextStyle(fontSize: 25.sp, color: colorWhite, letterSpacing: 2),
+                              ),
+                            ),
+                            Text(
+                              ':',
+                              style: TextStyle(fontSize: 25.sp, color: colorWhite),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: 10.w,
+                              child: Text(
+                                '${refactorTime(time.hours)}',
+                                style: TextStyle(fontSize: 25.sp, color: colorWhite, letterSpacing: 2),
+                              ),
+                            ),
+                            Text(
+                              ':',
+                              style: TextStyle(fontSize: 25.sp, color: colorWhite),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: 10.w,
+                              child: Text(
+                                '${refactorTime(time.min)}',
+                                style: TextStyle(fontSize: 25.sp, color: colorWhite, letterSpacing: 2),
+                              ),
+                            ),
+                            Text(
+                              ':',
+                              style: TextStyle(fontSize: 25.sp, color: colorWhite),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: 10.w,
+                              child: Text(
+                                '${refactorTime(time.sec)}',
+                                style: TextStyle(fontSize: 25.sp, color: colorWhite, letterSpacing: 2),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                )
+              : null,
+        )
+      ],
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-
-// class CountdownTimer extends StatefulWidget {
-//   @override
-//   _CountdownTimerState createState() => _CountdownTimerState();
-// }
-
-// class _CountdownTimerState extends State<CountdownTimer> with WidgetsBindingObserver, SingleTickerProviderStateMixin {
-//   double countdownTime;
-//   Duration _duration;
-//   Animation _animation;
-//   @override
-//   void initState() {
-//     super.initState();
-//     WidgetsBinding.instance.addObserver(this);
-//     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//       watch.start();
-//       setState(() {
-//         _duration = Duration(days: 1); //Duration set to days 1 on initState for testing purposes
-//       });
-//     });
-//     _animationController = AnimationController(
-//       duration: Duration(seconds: 100),
-//       vsync: this,
-//     );
-
-//     _animation = new CurvedAnimation(
-//       parent: _animationController,
-//       curve: Curves.linear,
-//     )..addStatusListener((AnimationStatus status) {
-//         if (status == AnimationStatus.completed) {
-//           _animationController.reset();
-//           _animationController.forward();
-//         }
-//       });
-//     _animationController.forward();
-//   }
-
-//   @override
-//   void dispose() {
-//     WidgetsBinding.instance.removeObserver(this);
-//     super.dispose();
-//   }
-
-//   @override
-//   void didChangeAppLifecycleState(AppLifecycleState state) {
-//     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//       //I want to update the timer when app is resumed
-//       if (state == AppLifecycleState.resumed) {
-//         print('App Resumed');
-//         setState(() {
-//           print('App life cycle resume duration $_duration}');
-//         });
-//       }
-//     });
-//     super.didChangeAppLifecycleState(state);
-//   }
-
-//   AnimationController _animationController;
-//   Stopwatch watch = Stopwatch();
-//   @override
-//   Widget build(BuildContext context) {
-//     print('Build run with duration $_duration');
-//     return Container(
-//       padding: const EdgeInsets.only(top: 10, bottom: 5),
-//       child: Column(
-//         children: [
-//           Container(
-//             width: 220,
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: <Widget>[
-//                 Text('DD', style: TextStyle(color: Colors.grey)),
-//                 Text('HH', style: TextStyle(color: Colors.grey)),
-//                 Text('MM', style: TextStyle(color: Colors.grey)),
-//                 Text('SS', style: TextStyle(color: Colors.grey)),
-//               ],
-//             ),
-//           ),
-//           AnimatedBuilder(
-//               animation: _animation, builder: (_duration, Widget child) => Text(watch.elapsed.inSeconds.toString()))
-//         ],
-//       ),
-//     );
-//   }
-// }

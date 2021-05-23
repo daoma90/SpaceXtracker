@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:spacextracker/constants.dart';
 import 'package:spacextracker/models/launch_models.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -9,6 +10,7 @@ class DetailCard extends StatelessWidget {
   DetailCard(this.launch);
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.only(
         top: 10,
@@ -23,7 +25,7 @@ class DetailCard extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(20),
-              constraints: BoxConstraints(maxWidth: 500),
+              constraints: width > 500 ? BoxConstraints(maxWidth: 50.w) : null,
               margin: EdgeInsets.only(top: 70, right: 10, bottom: 10, left: 10),
               decoration: BoxDecoration(
                 color: cardBackground.withOpacity(0.9),
@@ -50,9 +52,8 @@ class DetailCard extends StatelessWidget {
                             : Text(''),
                       ],
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 25),
                     Container(
-                      width: double.infinity,
                       alignment: Alignment.center,
                       child: Text(
                         launch.name,

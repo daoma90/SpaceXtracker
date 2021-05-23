@@ -17,7 +17,7 @@ class PastScreen extends StatelessWidget {
           // physics: NeverScrollableScrollPhysics(),
           padding: EdgeInsets.only(bottom: 10, top: isPortrait ? 10 : 25),
           itemCount: pastLaunches.length,
-          itemExtent: 120,
+          itemExtent: 130,
 
           itemBuilder: (context, index) {
             return AnimationConfiguration.staggeredList(

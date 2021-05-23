@@ -1,7 +1,11 @@
+// import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:spacextracker/screens/search_screen.dart';
+import 'package:sizer/sizer.dart';
+import './screens/rocket_screen.dart';
+import './screens/search_screen.dart';
 import './constants.dart';
 import './screens/detail_screen.dart';
 import './screens/loading_screen.dart';
@@ -20,20 +24,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => LaunchProvider(),
-      child: MaterialApp(
-        title: 'SpaceXTracker',
-        theme: ThemeData(
-          primaryColor: barColor,
-          scaffoldBackgroundColor: scaffoldColor,
-        ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => LoadingScreen(),
-          '/main': (context) => TabScreen(),
-          '/details': (context) => DetailScreen(),
-          '/search': (context) => SearchScreen(),
-        },
-      ),
+      child: Sizer(builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          title: 'SpaceXTracker',
+          theme: ThemeData(
+            fontFamily: 'Oswald',
+            primaryColor: barColor,
+            scaffoldBackgroundColor: scaffoldColor,
+          ),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => LoadingScreen(),
+            '/main': (context) => TabScreen(),
+            '/details': (context) => DetailScreen(),
+            '/search': (context) => SearchScreen(),
+            '/rocket': (context) => RocketScreen(),
+          },
+        );
+      }),
     );
   }
 }

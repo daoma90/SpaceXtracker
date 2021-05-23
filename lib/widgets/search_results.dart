@@ -13,6 +13,7 @@ class SearchResult extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         padding: EdgeInsets.only(bottom: 40, top: 10),
+        itemExtent: 130,
         itemCount: filteredLaunches.length,
         itemBuilder: (context, index) {
           return ListCard(filteredLaunches[index]);

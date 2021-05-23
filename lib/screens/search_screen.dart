@@ -1,56 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:spacextracker/widgets/search_results.dart';
 
 import '../constants.dart';
 
-// class SearchScreen extends StatelessWidget {
-//   String textInputNotEmpty;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     String textInput = "";
-
-//     return GestureDetector(
-//       onTap: () {
-//         FocusScope.of(context).unfocus();
-//       },
-//       child: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Search'),
-//           centerTitle: true,
-//         ),
-//         body: SingleChildScrollView(
-//           child: Container(
-//             padding: EdgeInsets.only(bottom: 25),
-//             child: Column(
-//               children: <Widget>[
-//                 Container(
-//                   margin: EdgeInsets.all(20),
-//                   decoration:
-//                       BoxDecoration(borderRadius: BorderRadius.circular(30), border: Border.all(color: colorWhite)),
-//                   child: TextField(
-//                     onChanged: (text) {
-//                       textInput = text;
-//                       print(text);
-//                     },
-//                     style: TextStyle(color: colorWhite, decoration: TextDecoration.none),
-//                     decoration: InputDecoration(
-//                         border: InputBorder.none,
-//                         prefixIcon: Icon(
-//                           Icons.search,
-//                           color: colorWhite,
-//                         ),
-//                         suffixIcon: textInput.length > 0 ? Icon(Icons.cancel) : null),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 class SearchScreen extends StatefulWidget {
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -67,6 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     textInputController.addListener(() {
       setState(() {});
     });
@@ -82,7 +36,20 @@ class _SearchScreenState extends State<SearchScreen> {
         body: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.only(
+                top: 20,
+                right: width > 1500
+                    ? 50.w
+                    : width > 500
+                        ? 20.w
+                        : 15,
+                left: width > 1500
+                    ? 50.w
+                    : width > 500
+                        ? 20.w
+                        : 15,
+              ),
+              // width: width > 600 ? 50.h : double.infinity,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), border: Border.all(color: colorWhite)),
               child: TextField(
                 autofocus: true,

@@ -17,3 +17,9 @@ const cardShadow = BoxShadow(
   blurRadius: 5,
   offset: Offset(0, 3),
 );
+
+const rocketScreenText = TextStyle(
+  color: colorWhite,
+  fontSize: 13,
+  fontWeight: FontWeight.w300,
+);

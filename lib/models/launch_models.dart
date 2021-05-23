@@ -12,7 +12,7 @@ class Launch {
   final int launchNumber;
   final bool upcoming;
   final String datePrecision;
-  int dateUnix;
+  final int dateUnix;
   final String dateReadable;
   final String timeReadable;
   final dynamic success;
@@ -39,10 +39,28 @@ class Launch {
 class Rocket {
   final String rocketId;
   final String rocketName;
+  final String details;
+  final num height;
+  final num diameter;
+  final num mass;
+  final String engine;
+  final num payloadToLeo;
+  final num payloadToGto;
+  final num payloadToMars;
+  final List<dynamic> payloadWeights;
 
   Rocket({
     @required this.rocketId,
     @required this.rocketName,
+    @required this.details,
+    @required this.height,
+    @required this.diameter,
+    @required this.mass,
+    @required this.engine,
+    @required this.payloadToLeo,
+    @required this.payloadToGto,
+    @required this.payloadToMars,
+    @required this.payloadWeights,
   });
 }
 

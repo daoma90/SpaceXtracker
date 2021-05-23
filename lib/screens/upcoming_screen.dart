@@ -39,7 +39,8 @@ class UpcomingScreen extends StatelessWidget {
     return Scaffold(
       body: AnimationLimiter(
         child: ListView.builder(
-          padding: EdgeInsets.only(bottom: 40, top: isPortrait ? 10 : 25),
+          padding: EdgeInsets.only(bottom: 10, top: isPortrait ? 10 : 25),
+          itemExtent: 130,
           itemCount: upcomingLaunches.length,
           itemBuilder: (context, index) {
             return AnimationConfiguration.staggeredList(
