@@ -10,8 +10,8 @@ import 'package:spacextracker/widgets/video_player.dart';
 class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final launch = ModalRoute.of(context).settings.arguments as Launch;
-    double width = MediaQuery.of(context).size.width;
+    final launch = ModalRoute.of(context).settings.arguments as Launch; //Launch data taken from provider.
+    double width = MediaQuery.of(context).size.width; // Check the width of the screen.
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -19,9 +19,11 @@ class DetailScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: width > 500
+          // If the screen width is over 500 pixels, render the widget found below instead.
           ? DetailScreenLarge(launch: launch)
           : SingleChildScrollView(
               child: Stack(
+                // The stack widget is used for placing widgets on top of eachother.
                 children: <Widget>[
                   Container(
                     child: Image(
@@ -70,12 +72,12 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Positioned widget is used to position a widget in a stack widget.
                   Positioned(
                     top: -50,
                     left: 0,
                     right: 0,
                     child: Container(
-                      // color: Colors.red,
                       margin: EdgeInsets.only(top: 210),
                       child: DetailCard(launch),
                     ),

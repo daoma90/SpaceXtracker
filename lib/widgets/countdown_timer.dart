@@ -15,9 +15,10 @@ class Countdown extends StatefulWidget {
 class _CountdownState extends State<Countdown> with WidgetsBindingObserver {
   double countdownTime;
   int _duration;
-  CountdownTimerController controller;
+  CountdownTimerController controller; // Controller for the countdown widget package.
   var countdownOpacity = 0.0;
 
+  // Refactor the countdown timer numbers. Example: if seconds = 1, render 01 instead.
   String refactorTime(int number) {
     if (number == null) return '00';
     return number < 10 ? '0$number' : '$number';
@@ -26,6 +27,9 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+
+    // Observing App life cycle state. The countdown timer will pause if the app is minimized.
+    // If app is minimized and then resumed, the countdown timer has to recalculate the remaining time.
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final launch = context.read<LaunchProvider>().upcomingLaunches[0];
@@ -41,6 +45,7 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    // Remove countdown timer controller and app life cycle observer when widget is disposed
     controller.disposeTimer();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -48,6 +53,8 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    // If app is resumed, recalculate the remaning time to render.
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (state == AppLifecycleState.resumed) {
         final launch = context.read<LaunchProvider>().upcomingLaunches[0];

@@ -10,24 +10,25 @@ class VideoBackground extends StatefulWidget {
 }
 
 class _VideoBackgroundState extends State<VideoBackground> with WidgetsBindingObserver {
-  VideoPlayerController _controller;
+  VideoPlayerController _controller; // Setting a controller for the video player widget
 
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    // Pointing the video controller to our local asset.
+
+    // Bind video player controller to the video asset in the assets folder.
     _controller = VideoPlayerController.asset("assets/videos/${widget.rocketName.replaceAll(' ', '')}.webm")
       ..initialize().then((_) {
-        // Once the video has been loaded we play the video and set looping to true.
+        // Play video when the widget is built.
         _controller.play();
         _controller.setLooping(true);
 
-        // Ensure the first frame is shown after the video is initialized.
         setState(() {});
       });
   }
 
   @override
+  // If app goes into a paused state, pause the video.
   void didChangeAppLifecycleState(AppLifecycleState state) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (state == AppLifecycleState.resumed) {

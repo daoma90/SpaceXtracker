@@ -4,7 +4,12 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import '../models/launch_models.dart';
 
+// This file wraps the app in the main.dart file which allows the data getting stored here
+// to be reachable in the entire app.
+
 class LaunchProvider with ChangeNotifier {
+// Data from the API is stored in these arrays.
+
   List<Launch> _upcomingLaunches = [];
 
   List<Launch> get upcomingLaunches {
@@ -35,6 +40,10 @@ class LaunchProvider with ChangeNotifier {
     return [..._launchpads];
   }
 
+// Format methods for converting unix date and time to a readable string.
+// Some launches don't have a decided time / day / month, this has to be checked
+// in these methods.
+
   String dateFormatter(String datePrecision, int time) {
     String formattedDate;
     if (datePrecision == 'hour' || datePrecision == 'day') {
@@ -58,17 +67,23 @@ class LaunchProvider with ChangeNotifier {
     return formattedTime;
   }
 
+  // Fetching data from the API and store the fetched data in the storage arrays at the top of this file.
+
   Future<void> fetchAndSetUpcomingLaunches() async {
     final url = 'https://api.spacexdata.com/v4/launches/upcoming';
 
     try {
       final response = await http.get(Uri.parse(url));
       final fetchData = json.decode(response.body) as List<dynamic>;
+// Fetch data from API and decode the response
 
       final List<Launch> upcomingLaunches = [];
       if (fetchData == null) {
         return;
       }
+
+// All data from the API isn't stored, only the fields needed.
+// Each launch is added into the corresponding array.
 
       fetchData.forEach((launch) {
         upcomingLaunches.add(Launch(
@@ -273,9 +288,13 @@ class LaunchProvider with ChangeNotifier {
     return launchpadList;
   }
 
+// Method used for filtering all launches that are stored, this is called on the search screen.
+
   List<Launch> filterLaunches(String searchInput) {
     List<Launch> allLaunches = [..._upcomingLaunches, ..._pastLaunches];
     List<Launch> filteredLaunches = [];
+
+// Search can be done by the detail text, date, launch name and rocket type.
 
     if (searchInput.length > 0) {
       allLaunches.forEach((launch) => {
@@ -290,6 +309,3 @@ class LaunchProvider with ChangeNotifier {
     return filteredLaunches;
   }
 }
-
-// (launch.success != null  && searchInput == 'success') ||
-//                 (launch.success != null && searchInput == 'failed') ||

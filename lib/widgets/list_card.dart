@@ -6,8 +6,8 @@ import 'package:spacextracker/widgets/custom_divider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ListCard extends StatelessWidget {
+  // This widget is the item in each of the lists in the app
   final Launch launch;
-
   ListCard(this.launch);
 
   @override
@@ -74,32 +74,6 @@ class ListCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // width > 350
-                      //     ? Column(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      //         crossAxisAlignment: CrossAxisAlignment.center,
-                      //         children: <Widget>[
-                      //           launch.success != null
-                      //               ? Text(
-                      //                   launch.success ? 'Success' : 'Failed',
-                      //                   style: TextStyle(color: launch.success ? colorGreen : colorRed, fontSize: 15),
-                      //                 )
-                      //               : Text(''),
-                      //           Column(
-                      //             children: [
-                      //               Text(
-                      //                 launch.dateReadable,
-                      //                 style: TextStyle(color: colorGrey, fontSize: 12),
-                      //               ),
-                      //               Text(
-                      //                 launch.timeReadable,
-                      //                 style: TextStyle(color: colorGrey, fontSize: 12),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ],
-                      //       )
-                      //     : SizedBox(),
                     ],
                   ),
                 ),

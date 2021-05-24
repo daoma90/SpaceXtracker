@@ -19,9 +19,12 @@ void main() {
   runApp(MyApp());
 }
 
+// Main widget of the app. App starts here.
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Wrapping app with provider. All widgets will have access to the data stored in the provider.
     return ChangeNotifierProvider(
       create: (context) => LaunchProvider(),
       child: Sizer(builder: (context, orientation, deviceType) {
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: '/',
           routes: {
+            // App routes
             '/': (context) => LoadingScreen(),
             '/main': (context) => TabScreen(),
             '/details': (context) => DetailScreen(),
@@ -45,24 +49,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class HomeScreen extends StatefulWidget {
-//   @override
-//   _HomeScreenState createState() => _HomeScreenState();
-// }
-
-// class _HomeScreenState extends State<HomeScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Center(
-//           child: Text('Launches'),
-//         ),
-//       ),
-//       body: Center(
-//         child: Text('Body'),
-//       ),
-//     );
-//   }
-// }

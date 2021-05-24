@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+// Simple divider line
+
 class CustomDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

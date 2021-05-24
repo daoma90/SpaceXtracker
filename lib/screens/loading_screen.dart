@@ -19,11 +19,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLaunchData() async {
+    // Fetching all the needed data at the start of the app. A loading screen will be shown while fetching.
     await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetRockets();
     await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetPayloads();
     await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetLaunchpads();
     await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetUpcomingLaunches();
     await Provider.of<LaunchProvider>(context, listen: false).fetchAndSetPastLaunches();
+    // When the data is done fetching, navigate to the main screen.
     Navigator.pushReplacementNamed(context, '/main');
   }
 

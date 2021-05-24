@@ -11,6 +11,8 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String textInputNotEmpty;
+
+  // Setting up a controller for the text input.
   final textInputController = TextEditingController();
   @override
   void dispose() {
@@ -21,6 +23,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
+    // Adding a listener on the text input controller.
+    // For every input the state is set, to let the widget know that a re-render is necessary if something has changed.
     textInputController.addListener(() {
       setState(() {});
     });
@@ -49,7 +54,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         ? 20.w
                         : 15,
               ),
-              // width: width > 600 ? 50.h : double.infinity,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), border: Border.all(color: colorWhite)),
               child: TextField(
                 autofocus: true,

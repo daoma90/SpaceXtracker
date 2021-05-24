@@ -106,6 +106,8 @@ class DetailsTextSection extends StatelessWidget {
     );
   }
 
+  // This widget will render a detail section (seen in the launch detail screen).
+  // Renders above widgets depending on what data is passed to this widget. Payload / Target / Launchpad / Details
   @override
   Widget build(BuildContext context) {
     return Container(

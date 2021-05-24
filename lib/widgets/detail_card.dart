@@ -7,7 +7,9 @@ import 'custom_divider.dart';
 
 class DetailCard extends StatelessWidget {
   final Launch launch;
+  // Constructor for a class that takes in a property
   DetailCard(this.launch);
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -18,6 +20,7 @@ class DetailCard extends StatelessWidget {
         bottom: 10,
         left: 20,
       ),
+      // The hero widget connects 2 widgets on different screens and animates them during the navigation transition.
       child: Hero(
         tag: 'card${launch.id}',
         child: Stack(

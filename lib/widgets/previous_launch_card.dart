@@ -39,7 +39,6 @@ class PreviousLaunchCard extends StatelessWidget {
                     Navigator.of(context).pushNamed('/details', arguments: pastLaunch);
                   },
                   child: Container(
-                    // width: double.infinity,
                     padding: EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,

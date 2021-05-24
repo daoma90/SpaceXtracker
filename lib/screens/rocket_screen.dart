@@ -1,25 +1,20 @@
-import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:spacextracker/constants.dart';
-import 'package:spacextracker/models/launch_models.dart';
 import 'package:spacextracker/providers/launch_provider.dart';
-
-import 'package:spacextracker/widgets/detail_card.dart';
-import 'package:spacextracker/widgets/detail_text_section.dart';
 import 'package:spacextracker/widgets/video_background.dart';
-import 'package:spacextracker/widgets/video_player.dart';
 
 class RocketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final rocketId = ModalRoute.of(context).settings.arguments as String;
-    final rocket = Provider.of<LaunchProvider>(context).getRocket(rocketId);
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final rocketId =
+        ModalRoute.of(context).settings.arguments as String; // A property is sent when navigating to this screen.
+    final rocket = Provider.of<LaunchProvider>(context).getRocket(rocketId); // Getting rocket data from provider
+    double width = MediaQuery.of(context).size.width; // Getting screen width
+    double height = MediaQuery.of(context).size.height; // Getting screen height
+    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait; // Checking orientation
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -32,11 +27,10 @@ class RocketScreen extends StatelessWidget {
           Container(
             height: height,
             width: width,
+            // This screen plays a video as background.
             child: VideoBackground(rocket.rocketName),
           ),
           Positioned.fill(
-            // top: height / 2,
-            // left: 50,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(

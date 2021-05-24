@@ -4,33 +4,6 @@ import 'package:spacextracker/providers/launch_provider.dart';
 import 'package:spacextracker/widgets/list_card.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-// class UpcomingScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     final upcomingLaunches = Provider.of<LaunchProvider>(context).upcomingLaunches;
-//     return Scaffold(
-//       body: AnimationLimiter(
-//         child: ListView.builder(
-//           padding: EdgeInsets.only(bottom: 40, top: 10),
-//           itemCount: upcomingLaunches.length,
-//           itemBuilder: (context, index) {
-//             return AnimationConfiguration.staggeredList(
-//               position: index,
-//               duration: const Duration(milliseconds: 400),
-//               child: SlideAnimation(
-//                 verticalOffset: 50,
-//                 child: FadeInAnimation(
-//                   child: ListCard(upcomingLaunches[index]),
-//                 ),
-//               ),
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class UpcomingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

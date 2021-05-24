@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+//Typing for the data getting fetched from the API
+
 class Launch {
   final String id;
   final String name;

@@ -25,7 +25,10 @@ class MainDrawer extends StatelessWidget {
             child: ListTile(
               title: Text('Falcon 9'),
               onTap: () {
+                // Each of the drawer items will close the drawer when pressed
                 Navigator.of(context).pop();
+
+                // Navigating to the rocket detail screen with the rocket ID.
                 Navigator.of(context).pushNamed('/rocket', arguments: '5e9d0d95eda69973a809d1ec');
               },
             ),

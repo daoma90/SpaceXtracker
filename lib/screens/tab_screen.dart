@@ -14,19 +14,30 @@ class TabScreen extends StatefulWidget {
 }
 
 class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
+  // This array stores the screens used by the tab bar.
   final List<Map<String, Object>> _tabScreens = [
     {'page': HomeScreen(), 'title': 'Home'},
     {'page': UpcomingScreen(), 'title': 'Upcoming launches'},
     {'page': PastScreen(), 'title': 'Past launches'},
   ];
+
+  // Index of the tab bar. 0-2. (3 screens)
   int _selectedScreenIndex = 0;
 
   void _selectScreen(int index) {
+    // Haptic feedback when tapping the tab bar.
     Feedback.forTap(context);
+
+    // If a tab is pressed, the state will change to the index of the pressed tab.
+    // This will start a re-render.
     setState(() {
       _selectedScreenIndex = index;
     });
   }
+
+  // App life cycle status is observed here.
+  // If the app goes from a minimized status to a resumed status (Minimizing the app and opening it again)
+  // New data will be fetched from the API.
 
   @override
   void initState() {
@@ -45,6 +56,7 @@ class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    // If app is resumed, new data is fetched to keep it updated.
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (state == AppLifecycleState.resumed) {
         print('resumed');
