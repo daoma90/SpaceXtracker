@@ -94,7 +94,9 @@ class PreviousLaunchCard extends StatelessWidget {
               child: FadeInImage.memoryNetwork(
                 height: 120,
                 width: 120,
-                image: pastLaunch.patch,
+                image: pastLaunch.patch != null
+                    ? pastLaunch.patch
+                    : 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Circle-icons-rocket.svg/1200px-Circle-icons-rocket.svg.png',
                 placeholder: kTransparentImage,
               ),
             )

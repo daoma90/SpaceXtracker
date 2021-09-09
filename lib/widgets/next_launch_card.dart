@@ -13,14 +13,14 @@ class NextLaunchCard extends StatelessWidget {
     final nextLaunch = Provider.of<LaunchProvider>(context).upcomingLaunches[0];
 
     return Container(
-      padding: EdgeInsets.only(top: 30, right: 20, bottom: 10, left: 20),
+      padding: EdgeInsets.only(top: 5, right: 20, bottom: 10, left: 20),
       width: double.infinity,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
           Container(
             constraints: BoxConstraints(maxWidth: 50.h),
-            margin: EdgeInsets.only(top: 50, right: 10, bottom: 10, left: 10),
+            margin: EdgeInsets.only(top: 80, right: 10, bottom: 10, left: 10),
             decoration: BoxDecoration(
               color: cardBackground,
               borderRadius: BorderRadius.circular(10),
@@ -91,11 +91,13 @@ class NextLaunchCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: -10,
+            top: 20,
             child: FadeInImage.memoryNetwork(
               height: 120,
               width: 120,
-              image: nextLaunch.patch,
+              image: nextLaunch.patch != null
+                  ? nextLaunch.patch
+                  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Circle-icons-rocket.svg/1200px-Circle-icons-rocket.svg.png',
               placeholder: kTransparentImage,
             ),
           )

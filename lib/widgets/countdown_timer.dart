@@ -99,43 +99,43 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver {
                               width: 10.w,
                               child: Text(
                                 '${refactorTime(time.days)}',
-                                style: TextStyle(fontSize: 25.sp, color: colorWhite, letterSpacing: 2),
+                                style: TextStyle(fontSize: 30, color: colorWhite, letterSpacing: 2),
                               ),
                             ),
                             Text(
                               ':',
-                              style: TextStyle(fontSize: 25.sp, color: colorWhite),
+                              style: TextStyle(fontSize: 30, color: colorWhite),
                             ),
                             Container(
                               alignment: Alignment.center,
                               width: 10.w,
                               child: Text(
                                 '${refactorTime(time.hours)}',
-                                style: TextStyle(fontSize: 25.sp, color: colorWhite, letterSpacing: 2),
+                                style: TextStyle(fontSize: 30, color: colorWhite, letterSpacing: 2),
                               ),
                             ),
                             Text(
                               ':',
-                              style: TextStyle(fontSize: 25.sp, color: colorWhite),
+                              style: TextStyle(fontSize: 30, color: colorWhite),
                             ),
                             Container(
                               alignment: Alignment.center,
                               width: 10.w,
                               child: Text(
                                 '${refactorTime(time.min)}',
-                                style: TextStyle(fontSize: 25.sp, color: colorWhite, letterSpacing: 2),
+                                style: TextStyle(fontSize: 30, color: colorWhite, letterSpacing: 2),
                               ),
                             ),
                             Text(
                               ':',
-                              style: TextStyle(fontSize: 25.sp, color: colorWhite),
+                              style: TextStyle(fontSize: 30, color: colorWhite),
                             ),
                             Container(
                               alignment: Alignment.center,
                               width: 10.w,
                               child: Text(
                                 '${refactorTime(time.sec)}',
-                                style: TextStyle(fontSize: 25.sp, color: colorWhite, letterSpacing: 2),
+                                style: TextStyle(fontSize: 30, color: colorWhite, letterSpacing: 2),
                               ),
                             ),
                           ],
