@@ -29,7 +29,7 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver {
     super.initState();
 
     // Observing App life cycle state. The countdown timer will pause if the app is minimized.
-    // If app is minimized and then resumed, the countdown timer has to recalculate the remaining time.
+    // If app is minimized and then resumed, the countdown timer has to recalculate the remaining time..
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final launch = context.read<LaunchProvider>().upcomingLaunches[0];
